@@ -1,0 +1,15 @@
+{
+  "name": "openstackci-kibana",
+  "version": "0.0.1",
+  "author": "Openstack CI",
+  "summary": "Puppet module for Kibana",
+  "license": "Apache 2.0",
+  "source": "git://git.openstack.org/openstack-infra/puppet-kibana.git",
+  "project_page": "http://ci.openstack.org/",
+  "issues_url": "https://storyboard.openstack.org/#!/search?q=puppet-kibana",
+  "dependencies": [
+    {"name":"puppetlabs/apache","version_requirement":">= 0.0.4"},
+    {"name":"openstackci/vcsrepo","version_requirement":">= 0.0.8"}
+  ]
+}
+
