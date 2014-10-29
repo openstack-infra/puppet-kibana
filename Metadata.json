@@ -1,0 +1,13 @@
+{
+  "name": "openstackci-kibana",
+  "version": "0.0.1",
+  "author": "Openstack CI",
+  "summary": "Kibana provider",
+  "license": "ASL 2.0",
+  "source": "git://git.openstack.org/openstack-infra/puppet-kibana.git",
+  "project_page": "https://github.com/openstack-ci/puppet-kibana",
+  "issues_url": "https://github.com/openstack-ci/puppet-kibana",
+  "dependencies": [
+    { "name": "openstackci/vcsrepo", "version_requirement": ">= 0.0.8" },
+  ]
+}
