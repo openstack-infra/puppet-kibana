@@ -45,7 +45,7 @@ class kibana (
     ensure   => latest,
     provider => git,
     source   => 'https://github.com/rashidkpc/Kibana.git',
-    revision => 'v0.2.0',
+    revision => 'v3.1.2',
     require  => File['/opt/kibana'],
   }
 
