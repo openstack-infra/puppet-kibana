@@ -44,7 +44,7 @@ class kibana (
   vcsrepo { '/opt/kibana/kibana':
     ensure   => latest,
     provider => git,
-    source   => 'https://github.com/rashidkpc/Kibana.git',
+    source   => 'https://github.com/rashidkpc/Kibana2.git',
     revision => 'v0.2.0',
     require  => File['/opt/kibana'],
   }
