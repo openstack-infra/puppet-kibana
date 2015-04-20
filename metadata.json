@@ -1,5 +1,5 @@
 {
-  "name": "openstackci-kibana",
+  "name": "openstackinfra-kibana",
   "version": "0.0.1",
   "author": "Openstack CI",
   "summary": "Puppet module for Kibana",
@@ -8,7 +8,7 @@
   "project_page": "http://ci.openstack.org/",
   "issues_url": "https://storyboard.openstack.org/#!/project/735",
   "dependencies": [
-    {"name":"openstackci/vcsrepo","version_requirement":">= 0.0.8"}
+    {"name":"openstackinfra/vcsrepo","version_requirement":">= 0.0.8"}
   ]
 }
 
