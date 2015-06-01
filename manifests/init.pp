@@ -54,6 +54,17 @@ class kibana (
     provider => 'gem',
   }
 
+  if $::osfamily == 'Debian' {
+    package { 'ruby-dev':
+      ensure => installed,
+      before => Exec['install_kibana'],
+    }
+    package { 'build-essential':
+      ensure => installed,
+      before => Exec['install_kibana'],
+    }
+  }
+
   exec { 'install_kibana':
     command     => 'bundle install',
     path        => ['/usr/bin', '/usr/local/bin'],
