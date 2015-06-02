@@ -1,0 +1,42 @@
+<VirtualHost *:80>
+  ServerName <%= @vhost_name %>
+  ServerAdmin <%= @serveradmin %>
+<% if @serveraliases.is_a? Array %>
+<% serveraliases.each do |name| %><%= "  ServerAlias #{name}\n" %><% end %>
+<% elsif @serveraliases != '' %>
+<%= "  ServerAlias #{serveraliases}" %>
+<% end %>
+
+  ErrorLog ${APACHE_LOG_DIR}/<%= @vhost_name %>-error.log
+
+  LogLevel warn
+
+  CustomLog ${APACHE_LOG_DIR}/<%= @vhost_name %>-access.log combined
+
+  <IfModule mod_proxy.c>
+    # Proxy GETs for elasticsearch .*/_aliases, .*/_status, .*/_search,
+    # .*/_mapping, .*/_mapping/field/.*, _cluster/health, _cluster/state/.*,
+    # _nodes. and _nodes/stats
+    # These GETs allow read-only access for kibana3, elasticsearch-head, and bigdesk,
+    # as well as arbitrary searches using the elasticsearch search api.
+    RewriteEngine on
+    RewriteCond %{REQUEST_METHOD} GET
+    RewriteRule ^/((.*/)?_aliases|(.*/)?_status|(.*/)?_search|(.*/)?_mapping|(.*/)?_mapping/field/(.*)?|_cluster/health|_nodes)$ <%= @elasticsearch_url %>/$1 [P]
+    RewriteRule ^/((.*/)?_aliases|(.*/)?_status|(.*/)?_search|(.*/)?_mapping(/field(/.*)?)?|_cluster/(health|state(/.*)?)|_nodes(/stats)?)$ <%= @elasticsearch_url %>/$1 [P]
+    RewriteCond %{REQUEST_METHOD} POST
+    RewriteRule ^/(_aliases|(.*/)?_search)$ <%= @elasticsearch_url %>/$1 [P]
+    RewriteCond %{REQUEST_METHOD} OPTIONS
+    RewriteRule ^/((.*/)?_search)$ <%= @elasticsearch_url %>/$1 [P]
+    <Proxy <%= @elasticsearch_url %>/>
+      ProxySet connectiontimeout=<%= @vhost_proxy_connect_timeout %> timeout=<%= @vhost_proxy_timeout %>
+    </Proxy>
+    ProxyPassReverse / <%= @elasticsearch_url %>/
+  </IfModule>
+
+  DocumentRoot <%= docroot %>
+  <Directory <%= docroot %>>
+    Options -Multiviews
+  </Directory>
+
+</VirtualHost>
+
