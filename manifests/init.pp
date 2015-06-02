@@ -15,7 +15,8 @@
 # Class to install kibana frontend to logstash.
 #
 class kibana (
-  $discover_nodes = ['localhost:9200']
+  $discover_nodes = ['localhost:9200'],
+  $version        = 'ruby',
 ) {
 
   group { 'kibana':
@@ -41,64 +42,12 @@ class kibana (
     require  => User['kibana'],
   }
 
-  vcsrepo { '/opt/kibana/kibana':
-    ensure   => latest,
-    provider => git,
-    source   => 'https://github.com/rashidkpc/Kibana2.git',
-    revision => 'v0.2.0',
-    require  => File['/opt/kibana'],
-  }
-
-  package { 'bundler':
-    ensure   => latest,
-    provider => 'gem',
-  }
-
-  if $::osfamily == 'Debian' {
-    package { 'ruby-dev':
-      ensure => installed,
-      before => Exec['install_kibana'],
+  case $version {
+    'ruby':  {
+      include kibana::ruby
     }
-    package { 'build-essential':
-      ensure => installed,
-      before => Exec['install_kibana'],
+    default: {
+      fail("Unknown version: ${version}")
     }
   }
-
-  exec { 'install_kibana':
-    command     => 'bundle install',
-    path        => ['/usr/bin', '/usr/local/bin'],
-    cwd         => '/opt/kibana/kibana',
-    logoutput   => true,
-    refreshonly => true,
-    subscribe   => Vcsrepo['/opt/kibana/kibana'],
-    require     => [
-      User['kibana'],
-      Package['bundler'],
-    ],
-  }
-
-  file { '/opt/kibana/kibana/KibanaConfig.rb':
-    ensure  => present,
-    content => template('kibana/config.rb.erb'),
-    replace => true,
-    owner   => 'kibana',
-    group   => 'kibana',
-    require => Vcsrepo['/opt/kibana/kibana'],
-  }
-
-  file { '/etc/init/kibana.conf':
-    ensure => present,
-    source => 'puppet:///modules/kibana/kibana.init',
-  }
-
-  service { 'kibana':
-    ensure  => running,
-    require => [
-      File['/etc/init/kibana.conf'],
-      File['/opt/kibana/kibana/KibanaConfig.rb'],
-      Exec['install_kibana'],
-    ],
-  }
-
 }
