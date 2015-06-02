@@ -15,8 +15,12 @@
 # Class to install kibana frontend to logstash.
 #
 class kibana (
-  $discover_nodes = ['localhost:9200'],
-  $version        = 'ruby',
+  $discover_nodes          = ['localhost:9200'],
+  $version                 = 'ruby',
+  $js_vhost_name           = $::fqdn,
+  $js_vhost_aliases        = [],
+  $js_vhost_template       = 'kibana/dual-elasticsearch.vhost.erb',
+  $js_elasticsearch_prefix = '/',
 ) {
 
   group { 'kibana':
@@ -45,6 +49,14 @@ class kibana (
   case $version {
     'ruby':  {
       include ::kibana::ruby
+    }
+    'js':  {
+      class { '::kibana::js':
+        vhost_name           => $js_vhost_name,
+        vhost_aliases        => $js_vhost_aliases,
+        vhost_template       => $js_vhost_template,
+        elasticsearch_prefix => $js_elasticsearch_prefix,
+      }
     }
     default: {
       fail("Unknown version: ${version}")
