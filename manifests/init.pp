@@ -33,12 +33,12 @@ class kibana (
   }
 
   file { '/opt/kibana':
-    ensure   => directory,
-    owner    => 'kibana',
-    group    => 'kibana',
-    mode     => '0644',
-    recurse  => true,
-    require  => User['kibana'],
+    ensure  => directory,
+    owner   => 'kibana',
+    group   => 'kibana',
+    mode    => '0644',
+    recurse => true,
+    require => User['kibana'],
   }
 
   vcsrepo { '/opt/kibana/kibana':
