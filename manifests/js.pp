@@ -43,7 +43,7 @@ class kibana::js (
     subscribe => Vcsrepo[$base_path],
   }
 
-  apache::vhost { 'kibana':
+  httpd::vhost { 'kibana':
     docroot       => "${base_path}/src",
     vhost_name    => $vhost_name,
     serveraliases => $vhost_aliases,
