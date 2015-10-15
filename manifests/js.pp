@@ -43,6 +43,14 @@ class kibana::js (
     subscribe => Vcsrepo[$base_path],
   }
 
+  file { "${base_path}/src/app/dashboards/logstash.json":
+    ensure    => present,
+    source    => 'puppet:///modules/kibana/logstash.json',
+    owner     => 'www-data',
+    require   => Vcsrepo[$base_path],
+    subscribe => Vcsrepo[$base_path],
+  }
+
   httpd::vhost { 'kibana':
     docroot       => "${base_path}/src",
     vhost_name    => $vhost_name,
