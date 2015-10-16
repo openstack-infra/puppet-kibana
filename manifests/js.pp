@@ -51,6 +51,14 @@ class kibana::js (
     subscribe => Vcsrepo[$base_path],
   }
 
+  file { "${base_path}/src/app/controllers/dashLoader.js":
+    ensure    => present,
+    source    => 'puppet:///modules/kibana/dashLoader.js',
+    owner     => 'www-data',
+    require   => Vcsrepo[$base_path],
+    subscribe => Vcsrepo[$base_path],
+  }
+
   httpd::vhost { 'kibana':
     docroot       => "${base_path}/src",
     vhost_name    => $vhost_name,
