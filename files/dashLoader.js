@@ -58,7 +58,7 @@ function (angular, _) {
         id        : "urllink",
         // Note that we hvae to do the encode json thing because kibana
         // wants the parameters to be json quoted then url quoted ... :(
-        link      : window.location.href.replace(window.location.hash,"")+"#dashboard/file/logstash.json?query="+encodeURI(JSON.stringify(dashboard.current.services.query.list[0].query).slice(1,-1)),
+        link      : window.location.href.replace(window.location.hash,"")+"#dashboard/file/logstash.json?query="+encodeURIComponent(JSON.stringify(dashboard.current.services.query.list[0].query).slice(1,-1)),
         title     : "Share URL"
       };
       return;
