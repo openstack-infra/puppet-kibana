@@ -42,8 +42,7 @@ class kibana (
     ensure  => directory,
     owner   => 'kibana',
     group   => 'kibana',
-    mode    => '0644',
-    recurse => true,
+    mode    => '0755',
     require => User['kibana'],
   }
 
