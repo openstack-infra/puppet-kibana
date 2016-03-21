@@ -16,12 +16,12 @@
 #
 class kibana (
   $discover_nodes          = ['localhost:9200'],
-  $version                 = 'ruby',
-  $js_vhost_name           = $::fqdn,
-  $js_vhost_aliases        = [],
-  $js_vhost_template       = 'kibana/dual-elasticsearch.vhost.erb',
   $js_elasticsearch_prefix = '/',
   $js_elasticsearch_url    = 'http://localhost:9200',
+  $js_vhost_aliases        = [],
+  $js_vhost_name           = $::fqdn,
+  $js_vhost_template       = 'kibana/dual-elasticsearch.vhost.erb',
+  $version                 = 'ruby',
 ) {
 
   group { 'kibana':

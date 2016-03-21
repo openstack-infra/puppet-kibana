@@ -15,14 +15,14 @@
 # Class to install kibana frontend to logstash.
 #
 class kibana::js (
-  $vhost_template              = 'kibana/dual-elasticsearch.vhost.erb',
-  $vhost_aliases               = [],
-  $vhost_name                  = $::fqdn,
-  $vhost_proxy_timeout         = '120',
-  $vhost_proxy_connect_timeout = '15',
   $elasticsearch_url           = 'http://localhost:9200',
   $elasticsearch_prefix        = '/',  # Must contain trailing /
   $git_revision                = 'v3.1.2',
+  $vhost_aliases               = [],
+  $vhost_name                  = $::fqdn,
+  $vhost_proxy_connect_timeout = '15',
+  $vhost_proxy_timeout         = '120',
+  $vhost_template              = 'kibana/dual-elasticsearch.vhost.erb',
 ) {
 
   $base_path = "/opt/kibana/${git_revision}"
