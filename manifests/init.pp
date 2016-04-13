@@ -21,7 +21,7 @@ class kibana (
   $js_vhost_aliases        = [],
   $js_vhost_name           = $::fqdn,
   $js_vhost_template       = 'kibana/dual-elasticsearch.vhost.erb',
-  $version                 = 'ruby',
+  $version                 = 'js',
 ) {
 
   group { 'kibana':
@@ -47,9 +47,6 @@ class kibana (
   }
 
   case $version {
-    'ruby':  {
-      include ::kibana::ruby
-    }
     'js':  {
       class { '::kibana::js':
         vhost_name           => $js_vhost_name,
