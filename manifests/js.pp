@@ -59,12 +59,33 @@ class kibana::js (
     subscribe => Vcsrepo[$base_path],
   }
 
+  include ::httpd
+  if !defined(Httpd_mod['rewrite']) {
+    httpd_mod { 'rewrite':
+      ensure => present,
+    }
+  }
+  if !defined(Httpd_mod['proxy']) {
+    httpd_mod { 'proxy':
+      ensure => present,
+    }
+  }
+  if !defined(Httpd_mod['proxy_http']) {
+    httpd_mod { 'proxy_http':
+      ensure => present,
+    }
+  }
+
   httpd::vhost { 'kibana':
     docroot       => "${base_path}/src",
     vhost_name    => $vhost_name,
     serveraliases => $vhost_aliases,
     port          => 80,
     template      => $vhost_template,
+    require       => [
+      Httpd_mod['rewrite'],
+      Httpd_mod['proxy'],
+      Httpd_mod['proxy_http'],
+    ],
   }
-
 }
