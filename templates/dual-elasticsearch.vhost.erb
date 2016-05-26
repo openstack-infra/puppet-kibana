@@ -35,6 +35,9 @@
   DocumentRoot <%= docroot %>
   <Directory <%= docroot %>>
     Options -Multiviews
+    <IfVersion >= 2.4>
+    Require all granted
+    </IfVersion>
   </Directory>
 
 </VirtualHost>

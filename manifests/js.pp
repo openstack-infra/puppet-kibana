@@ -76,6 +76,12 @@ class kibana::js (
     }
   }
 
+  # The Apache mod_version module only needs to be enabled on Ubuntu 12.04
+  # as it comes compiled and enabled by default on newer OS, including CentOS
+  if !defined(Httpd::Mod['version']) and $::operatingsystem == 'Ubuntu' and $::operatingsystemrelease == '12.04' {
+    httpd::mod { 'version': ensure => present }
+  }
+
   httpd::vhost { 'kibana':
     docroot       => "${base_path}/src",
     vhost_name    => $vhost_name,
