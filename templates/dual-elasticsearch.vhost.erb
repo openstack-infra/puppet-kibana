@@ -2,9 +2,9 @@
   ServerName <%= @vhost_name %>
   ServerAdmin <%= @serveradmin %>
 <% if @serveraliases.is_a? Array %>
-<% serveraliases.each do |name| %><%= "  ServerAlias #{name}\n" %><% end %>
+<% @serveraliases.each do |name| %><%= "  ServerAlias #{name}\n" %><% end %>
 <% elsif @serveraliases != '' %>
-<%= "  ServerAlias #{serveraliases}" %>
+<%= "  ServerAlias #{@serveraliases}" %>
 <% end %>
 
   ErrorLog ${APACHE_LOG_DIR}/<%= @vhost_name %>-error.log
