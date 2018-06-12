@@ -21,15 +21,15 @@
     # as well as arbitrary searches using the elasticsearch search api.
     RewriteEngine on
     RewriteCond %{REQUEST_METHOD} GET
-    RewriteRule ^<%= @elasticsearch_prefix %>((.*/)?_aliases|(.*/)?_status|(.*/)?_search|(.*/)?_mapping(/field(/.*)?)?|_cluster/(health|state(/.*)?)|_nodes(/stats)?)$ <%= @elasticsearch_url %>/$1 [P]
+    RewriteRule ^<%= scope.lookupvar('::kibana::js::elasticsearch_prefix') %>((.*/)?_aliases|(.*/)?_status|(.*/)?_search|(.*/)?_mapping(/field(/.*)?)?|_cluster/(health|state(/.*)?)|_nodes(/stats)?)$ <%= scope.lookupvar('::kibana::js::elasticsearch_url') %>/$1 [P]
     RewriteCond %{REQUEST_METHOD} POST
-    RewriteRule ^<%= @elasticsearch_prefix %>(_aliases|(.*/)?_search)$ <%= @elasticsearch_url %>/$1 [P]
+    RewriteRule ^<%= scope.lookupvar('::kibana::js::elasticsearch_prefix') %>(_aliases|(.*/)?_search)$ <%= scope.lookupvar('::kibana::js::elasticsearch_url') %>/$1 [P]
     RewriteCond %{REQUEST_METHOD} OPTIONS
-    RewriteRule ^<%= @elasticsearch_prefix %>((.*/)?_search)$ <%= @elasticsearch_url %>/$1 [P]
-    <Proxy <%= @elasticsearch_url %>/>
-      ProxySet connectiontimeout=<%= @vhost_proxy_connect_timeout %> timeout=<%= @vhost_proxy_timeout %>
+    RewriteRule ^<%= scope.lookupvar('::kibana::js::elasticsearch_prefix') %>((.*/)?_search)$ <%= scope.lookupvar('::kibana::js::elasticsearch_url') %>/$1 [P]
+    <Proxy <%= scope.lookupvar('::kibana::js::elasticsearch_url') %>/>
+      ProxySet connectiontimeout=<%= scope.lookupvar('::kibana::js::vhost_proxy_connect_timeout') %> timeout=<%= scope.lookupvar('::kibana::js::vhost_proxy_timeout') %>
     </Proxy>
-    ProxyPassReverse <%= @elasticsearch_prefix %> <%= @elasticsearch_url %>/
+    ProxyPassReverse <%= scope.lookupvar('::kibana::js::elasticsearch_prefix') %> <%= scope.lookupvar('::kibana::js::elasticsearch_url') %>/
   </IfModule>
 
   DocumentRoot <%= @docroot %>
