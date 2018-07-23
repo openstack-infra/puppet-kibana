@@ -1,0 +1,9 @@
+Code-Review+2: Clark Boylan <cboylan@sapwetik.org>
+Code-Review+2: Monty Taylor <mordred@inaugust.com>
+Workflow+1: Monty Taylor <mordred@inaugust.com>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Mon, 23 Jul 2018 07:34:04 +0000
+Reviewed-on: https://review.openstack.org/582169
+Project: openstack-infra/puppet-kibana
+Branch: refs/heads/master
