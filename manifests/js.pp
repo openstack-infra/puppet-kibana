@@ -23,6 +23,7 @@ class kibana::js (
   $vhost_proxy_connect_timeout = '15',
   $vhost_proxy_timeout         = '120',
   $vhost_template              = 'kibana/dual-elasticsearch.vhost.erb',
+  $serveradmin                 = "webmaster@${::fqdn}",
 ) {
 
   $base_path = "/opt/kibana/${git_revision}"
