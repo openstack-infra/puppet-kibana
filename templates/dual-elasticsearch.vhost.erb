@@ -1,6 +1,6 @@
 <VirtualHost *:80>
   ServerName <%= @vhost_name %>
-  ServerAdmin <%= @serveradmin %>
+  ServerAdmin <%= scope.lookupvar('::kibana::js::serveradmin') %>
 <% if @serveraliases.is_a? Array %>
 <% @serveraliases.each do |name| %><%= "  ServerAlias #{name}\n" %><% end %>
 <% elsif ! ['', nil].include?(@serveraliases) %>
