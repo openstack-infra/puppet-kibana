@@ -1,0 +1,8 @@
+Code-Review+2: Clark Boylan <cboylan@sapwetik.org>
+Workflow+1: Clark Boylan <cboylan@sapwetik.org>
+Verified+2: Zuul
+Submitted-by: Zuul
+Submitted-at: Fri, 14 Dec 2018 22:02:05 +0000
+Reviewed-on: https://review.openstack.org/625344
+Project: openstack-infra/puppet-kibana
+Branch: refs/heads/master
