@@ -1,6 +1,3 @@
-# OpenStack Kibana Module
+# This repo has moved to OpenDev
 
-## Overview
-
-This module installs Kibana from source, creates kibana user, and starts the
-web instance.
+It can now be found at [https://opendev.org/opendev/puppet-kibana](https://opendev.org/opendev/puppet-kibana)
